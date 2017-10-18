@@ -2,6 +2,7 @@
 /// Twilio Credentials
 var accountSid = "ACCOUNT_SID_GOES_HERE";
 var authToken = "AUTH_TOKEN_GOES_HERE";
+var myNumber="+3311221122";
 ///
 //////////////////////////////////////////////////////
 var twilio = require('twilio');
@@ -22,7 +23,10 @@ app.use("/gui",express.static("gui"));
 app.get('/', function (req, res) {
     res.redirect("/gui/index.html");
 });
-
+app.get("/mynumber",function(req,res){
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({number:myNumber}));
+});
 
 var mySocket;
 io.on('connection', function (socket) {
@@ -30,7 +34,7 @@ io.on('connection', function (socket) {
     mySocket = socket;
     socket.emit("sms", { From: "System", Body: "You're now connected" });
     socket.on("send", function (msg) {
-        client.messages.create({ to: msg.to, body: msg.body, from: "+441293344691" });
+        client.messages.create({ to: msg.to, body: msg.body, from: myNumber });
         socket.emit("sms", { From: "System", Body: "Sent SMS to " + msg.to + "(" + msg.body + ")" });
     });
 });

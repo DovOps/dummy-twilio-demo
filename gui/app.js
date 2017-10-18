@@ -1,7 +1,9 @@
 var texts = 0;
 var calls = 0;
 $(function () {
-    $("#number").text("+44 2221 111111")
+    $.get("/mynumber",function(data){
+        $("#number").text(data.number);
+    } );
     var socket = io();
     socket.on('sms', function (msg) {
         if ("System" != msg.From) $("#texts").text(++texts);
