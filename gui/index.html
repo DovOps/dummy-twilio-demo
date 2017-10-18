@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M"
+        crossorigin="anonymous">
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="app.js"></script>
+    <title>Dov's Twilio Demo</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark">
+        <h1 class="navbar-brand " style="font-size:30px">Quick Demo: Call or Text at <span id="number" class="badge badge-pill badge-warning">[Phone Number Here]</span></h1>
+    </nav>
+    <div class="jumbotron" style="margin-top:20px;">
+        <div class="container">
+            <h3 class="display-4"> SMS <span id="texts" class="badge badge-pill badge-primary">0</span> | Voice <span id="voices" class="badge badge-pill badge-success">0</span></h3>
+            <form id="form" id="chat_form">
+                To: <input id="to" type="text"><br> Text: <input id="text" type="text"><br>
+                <input type="submit" value="Send">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Messages</h3>
+                <ul id="messages"></ul>
+            </div>
+            <div class="col-md-6">
+
+                <h3>Calls</h3>
+                <ul id="calls"></ul>
+            </div>
+        </div>
+</body>
+
+</html>

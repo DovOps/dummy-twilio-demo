@@ -1,0 +1,39 @@
+Adding hangup feature.
+
+.data("id",msg.CallSid)
+
+el.click(function(){
+            var callId= $(this).data("id");
+            $.post("/terminate",{id:callId});
+});
+
+
+// Hang up a call
+app.post("/terminate", function(req,res){
+   var callId=req.body.id;
+   client.calls(callId).update({status:"completed"});
+});
+
+------------
+const gather=twiml.gather({numDigits:1});
+gather.say("Please type a number");
+twiml.redirect("/process");
+------------
+if(req.body.Digits){
+    switch(req.body.Digits){
+        case '1': 
+            twiml.say("Good job. You're number 1");
+            break;
+        case '3':
+            twiml.say("Thank you. Goodbye");
+            twiml.hangup();
+            break;
+        case '5':
+            twiml.say("You get the idea");
+            twiml.hangup();
+        default:
+            twiml.say("Hmmm,,I'm not sure I understand.");
+            gather();
+            break;
+    }
+}
