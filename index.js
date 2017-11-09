@@ -3,6 +3,7 @@
 var accountSid = "ACCOUNT_SID_GOES_HERE";
 var authToken = "AUTH_TOKEN_GOES_HERE";
 var myNumber="+3311221122";
+var facebookPage="messenger:137529356977701"
 ///
 //////////////////////////////////////////////////////
 var twilio = require('twilio');
@@ -34,7 +35,13 @@ io.on('connection', function (socket) {
     mySocket = socket;
     socket.emit("sms", { From: "System", Body: "You're now connected" });
     socket.on("send", function (msg) {
-        client.messages.create({ to: msg.to, body: msg.body, from: myNumber });
+        console.log("Send :"+JSON.stringify(msg));
+        var fromAddress=myNumber;
+        if(msg.to.indexOf("messenger:")>-1) { fromAddress=facebookPage; }
+        client.messages.create({ to: msg.to, body: msg.body, from: fromAddress }).then(function(message,err){
+            if(message)console.log("Success Message:"+JSON.stringify(message));
+            if(error)console.log("ERROR:"+json.stringify(err));
+        });
         socket.emit("sms", { From: "System", Body: "Sent SMS to " + msg.to + "(" + msg.body + ")" });
     });
 });
